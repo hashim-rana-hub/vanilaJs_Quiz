@@ -87,25 +87,18 @@ questionArray.forEach((question) => {
 
 		input.setAttribute('type', 'radio');
 		input.setAttribute('name', question.id);
-
 		input.value = opt;
-		label.setAttribute('for', opt);
+		input.id = question.id + '-option-' + (index + 1);
 
-		label.innerText = opt;
+		label.setAttribute('for', input.id);
+		label.textContent = opt;
 
-		label.appendChild(input);
-		li.appendChild(label);
-		ul.appendChild(li);
+		ul.appendChild(li).appendChild(label).appendChild(input);
 	});
-
-	// const submitButton = document.getElementById('submit-button');
 
 	div2.appendChild(heading);
 	div2.appendChild(ul);
-	// div1.appendChild(button);
-
 	div1.appendChild(div2);
-	// div1.appendChild(submitButton);
 
 	document.body.appendChild(div1);
 	document.body.appendChild(div1).appendChild(submitButton);
@@ -133,16 +126,14 @@ function isAllSelected() {
 	}
 }
 function scoreCount() {
+	window.scrollTo(0, 0);
 	let score = 0;
-
 	for (let i = 0; i < questionArray.length; i++) {
 		var selectedInputs = document.getElementsByName(questionArray[i].id);
-		console.log(selectedInputs);
 		for (let j = 0; j < selectedInputs.length; j++) {
 			if (selectedInputs[j].checked && selectedInputs[j].value === questionArray[i].answer) {
 				score = score + 1;
 			}
-			console.log('score', score);
 		}
 	}
 	firstQuestionResult(score);
@@ -152,13 +143,17 @@ function firstQuestionResult(score) {
 	for (let i = 0; i < firstResult.length; i++) {
 		if (firstResult[i].checked && firstResult[i].value === 'lahore') {
 			score = score + 1;
-			console.log('first wali', score);
 		}
 	}
+	displayResult(score);
+}
+function displayResult(score) {
 	var result = document.createElement('div');
 	result.classList.add('result-div');
-
 	result.innerHTML += `<h1>Your corrected questions are ${score}</h1>`;
 	document.body.appendChild(result);
 	document.body.classList.add('stop-scroll');
+	setTimeout(() => {
+		result.style.display = 'none';
+	}, 5000);
 }
