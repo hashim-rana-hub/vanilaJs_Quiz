@@ -139,9 +139,9 @@ function scoreCount() {
 	firstQuestionResult(score);
 }
 function firstQuestionResult(score) {
-	const firstResult = document.getElementsByName('answer');
-	for (let i = 0; i < firstResult.length; i++) {
-		if (firstResult[i].checked && firstResult[i].value === 'lahore') {
+	const firstQuestion = document.getElementsByName('answer');
+	for (let i = 0; i < firstQuestion.length; i++) {
+		if (firstQuestion[i].checked && firstQuestion[i].value === 'lahore') {
 			score = score + 1;
 		}
 	}
